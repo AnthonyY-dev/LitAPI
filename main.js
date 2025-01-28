@@ -29,13 +29,13 @@ app.get('/getServers', async (req, res) => {
 
 app.post('/addServer', async (req, res) => {
     // Check for API key in headers
-    const { id, playerCount, ping } = req.body;
+    const { id, playerCount } = req.body;
     if (req.headers['x-api-key'] !== process.env.ADD_API_KEY) {
         return res.status(403).json({ error: 'Forbidden: Invalid or missing API key' });
     }
 
     try {
-        const { data: result, error } = await supabase.from("servers").insert({id: id, playerCount: playerCount, ping: ping});
+        const { data: result, error } = await supabase.from("servers").insert({id: id, playerCount: playerCount});
     
         if (error) {
           console.error('Error inserting data:', error);
